@@ -1,6 +1,5 @@
 import pygame
 import math
-from main import Ball
 
 W, H = 1000, 900
 HW, HH = W // 2, H // 2
@@ -16,6 +15,16 @@ COLORS = {
     "YELLOW": (255, 255, 0),
 }
 
+class Ball:
+    def __init__(self, x, y, r, color):
+        self.x = x
+        self.y = y
+        self.r = r
+        self.color = color
+        
+    def draw(self, window):
+        pygame.draw.circle(window, self.color, (self.x, self.y), self.r)
+        
 ball = Ball(HW, HH, 20, COLORS["WHITE"])
 
 run = True
