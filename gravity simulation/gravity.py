@@ -48,8 +48,6 @@ while run:
     m = pygame.mouse.get_pressed()
     mpos = pygame.mouse.get_pos()
     mx, my = mpos
-    ballX = round(ball.x)
-    ballY = round(ball.y)
     if not m[0]:
         if ball.y + vel + moveY > H - ball.r:
             vel *= -1 * friction
