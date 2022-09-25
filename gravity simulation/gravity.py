@@ -73,6 +73,7 @@ while run:
             vel *= -1
             moveY *= -1
     else:
+        moveX, moveY = 0, 0
         vel = 2
         rad = math.atan2(my - ball.y, mx - ball.x)
         distance = math.hypot(mx - ball.x, my - ball.y)
