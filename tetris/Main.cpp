@@ -223,7 +223,6 @@ int main() {
 	std::vector<std::vector<RectangleShape>> grid = makeGrid();
 	std::vector<std::vector<int>> current;
 
-	std::vector<std::vector<std::vector<int>>> placed;
 	std::vector<Color> colors = { Color::Red, Color::Blue, Color::Green, Color::Magenta, Color::Yellow, Color::Cyan, Color::Color(255, 102, 0) };
 
 
