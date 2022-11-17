@@ -43,7 +43,7 @@ unsigned int score = 0;
 
 Color color;
 
-std::map<int, bool> filledRows;
+std::vector<bool> filledRows(COLS, false);
 
 std::vector<std::vector<int>> tetriminos = {
 											{0, 3}, {0, 4}, {0, 5}, {1, 4}, // T
@@ -92,39 +92,27 @@ bool check(std::vector<std::vector<RectangleShape>>& grid) {
 		for (int j = 0; j < grid[i].size(); j++) {
 			if (grid[i][j].getFillColor() == baseColor) {
 				isRowFilled = false;
+				break;
 			}
 		}
 		filledRows[i] = isRowFilled;
 	}
 
 	for (int i = 0; i < grid.size(); i++) {
-		if (filledRows[i] && !stopped) {
-			score += 375;
-		}
-	}
-
-
-	for (int i = 0; i < grid.size(); i++) {
-		for (int j = 0; j < grid[i].size(); j++) {
-			if (filledRows[i]) {
-				grid[i][j].setFillColor(baseColor);
-				grid[i][j].setOutlineColor(Color(255, 255, 255, 128));
-				grid[i][j].setOutlineThickness(2);
+		if(filledRows[i]){
+			for (int j = 0; j < grid[i].size(); j++) {
 				int k = i;
-				while (k > 0) {
-					if (grid[k - 1][j].getFillColor() != baseColor) {
+					while (k > 0) {
 						grid[k][j].setFillColor(grid[k - 1][j].getFillColor());
 						grid[k][j].setOutlineThickness(grid[k - 1][j].getOutlineThickness());
 						grid[k - 1][j].setFillColor(baseColor);
 						grid[k][j].setOutlineColor(grid[k - 1][j].getOutlineColor());
-						grid[k-1][j].setOutlineColor(Color(255, 255, 255, 128));
+						grid[k - 1][j].setOutlineColor(Color(255, 255, 255, 128));
 						grid[k - 1][j].setOutlineThickness(2);
-
+						k--;
 					}
-					k--;
-				}
-
 			}
+			if (!stopped) score += 375;
 		}
 	}
 
@@ -197,7 +185,7 @@ int rng(int low, int high) {
 int main() {
 	RenderWindow window(VideoMode(W, H), "Tetris");
 	window.setFramerateLimit(60);
-	if (!music.openFromFile("Audio/Original Tetris theme (Tetris Soundtrack).ogg")) {
+	if (!music.openFromFile("C:/Users/raf/Downloads/ytBATCH/Original Tetris theme (Tetris Soundtrack).ogg")) {
 		return 1;
 	}
 	music.setLoop(true);
@@ -223,6 +211,7 @@ int main() {
 	std::vector<std::vector<RectangleShape>> grid = makeGrid();
 	std::vector<std::vector<int>> current;
 
+	std::vector<std::vector<std::vector<int>>> placed;
 	std::vector<Color> colors = { Color::Red, Color::Blue, Color::Green, Color::Magenta, Color::Yellow, Color::Cyan, Color::Color(255, 102, 0) };
 
 
