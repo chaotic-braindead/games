@@ -106,9 +106,8 @@ int main() {
 				if (event.key.code == Keyboard::S) { keys.s = 0; }
 				if (event.key.code == Keyboard::D) { keys.d = 0; }
 			}
-			moveX = 0, moveY = 0;
 		}
-
+		moveX = 0, moveY = 0;
 		if (keys.w) { 
 			moveX = dx;
 			moveY = dy; 
@@ -119,17 +118,11 @@ int main() {
 		}
 		if (keys.a) {
 			angle -= 0.1;
-			if (angle < 0) { angle += 2 * PI; }
-			dx = std::cos(angle) * speed;
-			dy = std::sin(angle) * speed;
-			
+			if (angle < 0) { angle += 2 * PI; }	
 		}
 		if (keys.d) {
 			angle += 0.1;
-			if (angle > 2 * PI) { angle -= 2 * PI; }
-			dx = std::cos(angle) * speed;
-			dy = std::sin(angle) * speed;
-			
+			if (angle > 2 * PI) { angle -= 2 * PI; }		
 		}
 		dx = std::cos(angle) * speed;
 		dy = std::sin(angle) * speed;
